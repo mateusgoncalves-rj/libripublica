@@ -1,0 +1,262 @@
+/* RESET E ESTILOS GERAIS */
+:root {
+    --primary-color: #34495e;
+    --secondary-color: #ecf0f1;
+    --accent-color: #e74c3c;
+    --font-serif: 'Merriweather', serif;
+    --font-sans: 'Lato', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--secondary-color);
+    color: #2c3e50;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* TELA DE LOGIN */
+#login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: white;
+}
+
+.login-container h1 {
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.login-container p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+#login-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    color: #333;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#login-btn img {
+    width: 20px;
+    margin-right: 12px;
+}
+
+#login-btn:hover {
+    background-color: #f1f1f1;
+}
+
+/* APLICAÇÃO PRINCIPAL */
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+#logout-btn {
+    padding: 8px 16px;
+    border: 1px solid white;
+    background: transparent;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#logout-btn:hover {
+    background-color: white;
+    color: var(--primary-color);
+}
+
+main {
+    width: 90%;
+    max-width: 1200px;
+    margin: 2rem auto;
+}
+
+main h2 {
+    font-family: var(--font-serif);
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+}
+
+.gallery-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1.5rem;
+}
+
+.book-card {
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+.book-card img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+}
+
+.book-card h4 {
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.book-card p {
+    font-size: 0.8rem;
+    color: #777;
+}
+
+/* LEITOR DE EBOOK */
+#ebook-reader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+}
+
+.reader-controls {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.reader-controls h3 {
+    font-size: 1rem;
+    font-family: var(--font-sans);
+}
+
+.font-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.font-controls button {
+    width: 30px;
+    height: 30px;
+    border: 1px solid white;
+    background: transparent;
+    color: white;
+    font-size: 1.2rem;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#close-reader-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+#reader-content {
+    flex-grow: 1;
+    background-color: #fdfdfd;
+    padding: 2rem 5%;
+    overflow-y: auto;
+    font-family: var(--font-serif);
+    font-size: 18px;
+    line-height: 1.8;
+    color: #333;
+}
+
+.loading-text {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #999;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 600px) {
+    .header-container {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    main h2 {
+        text-align: center;
+    }
+    
+    .gallery-container {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 1rem;
+    }
+
+    #reader-content {
+        padding: 1.5rem;
+        font-size: 16px;
+    }
+
+    .reader-controls {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}

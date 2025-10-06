@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LibriPublica - Ebooks de Domínio Público</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="login-page">
+        <div class="login-container">
+            <h1>LibriPublica</h1>
+            <p>Sua biblioteca de clássicos em domínio público.</p>
+            <button id="login-btn">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Logo">
+                Entrar com Google
+            </button>
+        </div>
+    </div>
+
+    <div id="main-app" class="hidden">
+        <header>
+            <div class="header-container">
+                <h1>LibriPublica</h1>
+                <div class="user-info">
+                    <span id="user-name"></span>
+                    <button id="logout-btn">Sair</button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <h2>Explore nossa Coleção</h2>
+            <div id="book-gallery" class="gallery-container">
+                </div>
+        </main>
+    </div>
+    
+    <div id="ebook-reader" class="hidden">
+        <div class="reader-controls">
+            <h3 id="reader-title"></h3>
+            <div class="font-controls">
+                <span>A-</span>
+                <button id="decrease-font">-</button>
+                <button id="increase-font">+</button>
+                <span>A+</span>
+            </div>
+            <button id="close-reader-btn">Fechar [X]</button>
+        </div>
+        <div id="reader-content">
+            <p class="loading-text">Carregando livro...</p>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+    <script src="script.js"></script>
+</body>
+</html>
