@@ -30,7 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const increaseFontBtn = document.getElementById('increase-font');
     const decreaseFontBtn = document.getElementById('decrease-font');
 
-    let currentFontSize = 18;
+    const toggleFontStyleBtn = document.getElementById('toggle-font-style');
+
+    // Inicializa com as configurações de fonte do CSS Minimalista (19px)
+    let currentFontSize = 19; 
+    let isSerif = true;
 
     // --- AUTENTICAÇÃO ---
 
@@ -75,8 +79,12 @@ document.addEventListener('DOMContentLoaded', () => {
             bookGallery.innerHTML = ''; // Limpa a galeria
             snapshot.forEach(doc => {
                 const book = doc.data();
+                
+                // Trata URL undefined/vazio
+                const contentUrl = book.contentFile && book.contentFile.trim() ? book.contentFile : '#';
+                
                 const bookCard = `
-                    <div class="book-card" data-content="${book.contentFile}" data-title="${book.title}">
+                    <div class="book-card" data-content="${contentUrl}" data-title="${book.title}">
                         <img src="${book.coverImage}" alt="Capa de ${book.title}">
                         <h4>${book.title}</h4>
                         <p>${book.author}</p>
@@ -90,6 +98,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.addEventListener('click', () => {
                     const contentUrl = card.dataset.content;
                     const title = card.dataset.title;
+                    
+                    if (contentUrl === '#') {
+                        console.error('URL de conteúdo não definido para este livro no Firestore. Verifique o campo `contentFile`.');
+                        alert('O arquivo deste livro não está configurado corretamente no banco de dados. Por favor, contate o administrador.');
+                        return;
+                    }
+
                     openReader(title, contentUrl);
                 });
             });
@@ -107,21 +122,35 @@ document.addEventListener('DOMContentLoaded', () => {
         readerContent.innerHTML = '<p class="loading-text">Carregando livro...</p>';
         ebookReader.classList.remove('hidden');
         
+        // ** INÍCIO DA CORREÇÃO CORS **
+        // Usa um proxy para contornar a Política de Mesma Origem ao carregar o arquivo do Project Gutenberg.
+        const proxyUrl = 'https://corsproxy.io/?';
+        const finalUrl = proxyUrl + encodeURIComponent(contentUrl);
+
         try {
-            const response = await fetch(contentUrl);
+            const response = await fetch(finalUrl); // Fetch AGORA usa o proxy
+            // ** FIM DA CORREÇÃO CORS **
+            
             if (!response.ok) {
-                throw new Error('Falha ao buscar o conteúdo do livro.');
+                // Mensagem detalhada no console para debug
+                throw new Error(`Falha ao buscar o conteúdo do livro. Status: ${response.status}. URL de Origem: ${contentUrl}`);
             }
             let text = await response.text();
             
-            // Simples formatação: substitui quebras de linha por parágrafos para melhor leitura
+            // Simples formatação: substitui quebras de linha por parágrafos
             const formattedText = text.split(/\n\s*\n/).map(paragraph => `<p>${paragraph.replace(/\n/g, '<br>')}</p>`).join('');
 
             readerContent.innerHTML = formattedText;
             readerContent.scrollTop = 0; // Vai para o topo do livro
+            
+            // Garante que o estado inicial da fonte esteja aplicado
+            readerContent.style.fontSize = `${currentFontSize}px`;
+            readerContent.style.fontFamily = isSerif ? `'Merriweather', serif` : `'Lato', sans-serif`;
+
         } catch (error) {
             console.error("Erro ao carregar conteúdo do livro:", error);
-            readerContent.innerHTML = '<p class="loading-text">Não foi possível carregar o livro. Verifique o link e a política de CORS.</p>';
+            // Mensagem de erro para o usuário
+            readerContent.innerHTML = '<p class="loading-text">Não foi possível carregar o livro. Verifique o console para mais detalhes sobre o erro.</p>';
         }
     }
 
@@ -138,5 +167,17 @@ document.addEventListener('DOMContentLoaded', () => {
     decreaseFontBtn.addEventListener('click', () => {
         currentFontSize = Math.max(12, currentFontSize - 2); // Limite mínimo de 12px
         readerContent.style.fontSize = `${currentFontSize}px`;
+    });
+
+    // Lógica para alternar entre SERIF e SANS-SERIF
+    toggleFontStyleBtn.addEventListener('click', () => {
+        // Alterna a variável de controle
+        isSerif = !isSerif;
+        
+        if (isSerif) {
+            readerContent.style.fontFamily = `'Merriweather', serif`;
+        } else {
+            readerContent.style.fontFamily = `'Lato', sans-serif`;
+        }
     });
 });

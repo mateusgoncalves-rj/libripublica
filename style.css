@@ -1,10 +1,36 @@
 /* RESET E ESTILOS GERAIS */
 :root {
-    --primary-color: #34495e;
-    --secondary-color: #ecf0f1;
-    --accent-color: #e74c3c;
+    /* PALETA MINIMALISTA: Foco em Branco, Preto e Cinzas. */
+    --primary-color: #333333;      /* Texto principal e Borda */
+    --secondary-color: #FAFAFA;    /* Fundo principal claro (Off-White) */
+    --accent-color: #007ACC;       /* Destaque sutil (Azul Institucional/Link) */
+    --text-color: #333333;         /* Texto Escuro */
+    --header-bg: white;            /* Fundo do cabeçalho */
+    --card-bg: white;              /* Fundo do card */
+    --border-color: #EEEEEE;       /* Borda muito sutil */
+    
+    /* Variáveis do Leitor */
+    --reader-bg: #FFFFF8;          /* Fundo de Leitura: Papel suave */
+    --reader-text: #222222;        /* Texto de Leitura: Quase preto */
+
     --font-serif: 'Merriweather', serif;
     --font-sans: 'Lato', sans-serif;
+}
+
+/* TEMA ESCURO (Dark Mode) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-color: #F0F0F0;
+        --secondary-color: #1A1A1A;    /* Fundo principal escuro */
+        --accent-color: #4AA4F5;       /* Destaque sutil (Azul claro) */
+        --text-color: #E0E0E0;         /* Texto claro */
+        --header-bg: #222222;          /* Fundo do cabeçalho */
+        --card-bg: #222222;            /* Fundo do card */
+        --border-color: #333333;       /* Borda escura */
+
+        --reader-bg: #111111;          /* Fundo de Leitura: Muito escuro */
+        --reader-text: #F0F0F0;        /* Texto de Leitura: Muito claro */
+    }
 }
 
 * {
@@ -16,7 +42,9 @@
 body {
     font-family: var(--font-sans);
     background-color: var(--secondary-color);
-    color: #2c3e50;
+    color: var(--text-color);
+    line-height: 1.6;
+    transition: background-color 0.4s, color 0.4s; 
 }
 
 .hidden {
@@ -30,51 +58,54 @@ body {
     align-items: center;
     height: 100vh;
     text-align: center;
-    background: linear-gradient(135deg, #2c3e50, #34495e);
-    color: white;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
 }
 
 .login-container h1 {
     font-family: var(--font-serif);
     font-size: 3rem;
     margin-bottom: 0.5rem;
+    font-weight: 300; /* Mais leve */
 }
 
 .login-container p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-    opacity: 0.9;
+    font-size: 1.1rem;
+    margin-bottom: 2.5rem;
+    opacity: 0.8;
 }
 
 #login-btn {
     display: inline-flex;
     align-items: center;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 5px;
-    background-color: white;
-    color: #333;
+    padding: 12px 30px;
+    border: 1px solid var(--primary-color);
+    border-radius: 3px;
+    background-color: transparent; /* Fundo transparente */
+    color: var(--text-color);
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: 400;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-#login-btn img {
-    width: 20px;
-    margin-right: 12px;
+    transition: background-color 0.2s, color 0.2s;
 }
 
 #login-btn:hover {
-    background-color: #f1f1f1;
+    background-color: var(--accent-color);
+    color: var(--header-bg); /* Inverte a cor do texto no hover */
+    border-color: var(--accent-color);
+}
+
+#login-btn img {
+    /* Removemos a imagem do Google para ser mais minimalista */
+    display: none; 
 }
 
 /* APLICAÇÃO PRINCIPAL */
 header {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 1rem 0;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    background-color: var(--header-bg);
+    color: var(--text-color);
+    padding: 1.5rem 0; /* Mais espaçamento */
+    border-bottom: 1px solid var(--border-color); /* Linha sutil */
     position: sticky;
     top: 0;
     z-index: 100;
@@ -82,7 +113,7 @@ header {
 
 .header-container {
     width: 90%;
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -91,77 +122,98 @@ header {
 
 header h1 {
     font-family: var(--font-serif);
-    font-size: 1.5rem;
+    font-size: 1.3rem;
+    font-weight: 400;
 }
 
 .user-info {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.5rem;
+    font-size: 0.9rem;
 }
 
 #logout-btn {
-    padding: 8px 16px;
-    border: 1px solid white;
+    padding: 6px 12px;
+    border: 1px solid var(--border-color);
     background: transparent;
-    color: white;
-    border-radius: 5px;
+    color: var(--text-color);
+    border-radius: 3px;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 }
 
 #logout-btn:hover {
-    background-color: white;
-    color: var(--primary-color);
+    background-color: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
 }
 
 main {
     width: 90%;
-    max-width: 1200px;
-    margin: 2rem auto;
+    max-width: 1000px;
+    margin: 3rem auto; /* Mais margem */
 }
 
 main h2 {
-    font-family: var(--font-serif);
-    margin-bottom: 1.5rem;
-    border-bottom: 2px solid var(--primary-color);
-    padding-bottom: 0.5rem;
+    font-family: var(--font-sans);
+    font-weight: 300; /* Título bem leve */
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: var(--text-color);
 }
 
+/* LAYOUT DE GRID SIMPLES */
 .gallery-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 1.5rem;
+    /* Grid clássico com tamanho mínimo flexível */
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+    gap: 2rem; 
 }
 
 .book-card {
     cursor: pointer;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
+    background-color: var(--card-bg);
+    padding: 0;
+    border-radius: 0;
+    border: none; 
+    transition: opacity 0.2s, box-shadow 0.2s;
 }
 
 .book-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    /* Sombra e opacidade sutis no hover */
+    opacity: 0.9;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); 
 }
 
 .book-card img {
     width: 100%;
     height: auto;
-    aspect-ratio: 2/3;
+    aspect-ratio: 2/3; 
     object-fit: cover;
-    border-radius: 5px;
+    border-radius: 3px;
     margin-bottom: 0.5rem;
+    border: 1px solid var(--border-color); /* Borda sutil na capa */
+    transition: box-shadow 0.2s;
+}
+
+.book-card:hover img {
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
 .book-card h4 {
-    font-size: 0.9rem;
-    color: #333;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin: 0.5rem 0 0.1rem 0;
 }
 
 .book-card p {
-    font-size: 0.8rem;
-    color: #777;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.6;
+    margin: 0;
 }
 
 /* LEITOR DE EBOOK */
@@ -171,61 +223,90 @@ main h2 {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: var(--secondary-color); /* Usa a cor de fundo principal */
     z-index: 200;
     display: flex;
     flex-direction: column;
 }
 
 .reader-controls {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 1rem;
+    background-color: var(--header-bg);
+    color: var(--text-color);
+    padding: 1.5rem 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-shrink: 0;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .reader-controls h3 {
-    font-size: 1rem;
-    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    font-family: var(--font-serif);
+    font-weight: 700;
+    flex-grow: 1;
+    text-align: center;
+    margin: 0 20px;
 }
 
-.font-controls {
+.reader-settings {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.8rem;
 }
 
-.font-controls button {
-    width: 30px;
-    height: 30px;
-    border: 1px solid white;
+.reader-settings button {
+    border: 1px solid var(--border-color);
     background: transparent;
-    color: white;
-    font-size: 1.2rem;
-    border-radius: 50%;
+    color: var(--text-color);
+    border-radius: 3px;
+    padding: 6px 10px;
+    width: auto;
+    height: auto;
+    font-size: 0.9rem;
+    font-weight: 400;
     cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.reader-settings button:hover {
+    background-color: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
 }
 
 #close-reader-btn {
     background: transparent;
-    border: none;
-    color: white;
-    font-size: 1rem;
-    cursor: pointer;
+    border: 1px solid var(--text-color);
+    color: var(--text-color);
+    padding: 6px 12px;
+    border-radius: 3px;
+    font-size: 0.9rem;
+}
+
+#close-reader-btn:hover {
+    background-color: var(--text-color);
+    color: var(--header-bg);
 }
 
 #reader-content {
     flex-grow: 1;
-    background-color: #fdfdfd;
-    padding: 2rem 5%;
+    background-color: var(--reader-bg); 
+    padding: 4rem 10%; /* Espaçamento de leitura generoso */
     overflow-y: auto;
     font-family: var(--font-serif);
-    font-size: 18px;
-    line-height: 1.8;
-    color: #333;
+    font-size: 19px;
+    line-height: 1.75;
+    color: var(--reader-text);
+    /* Ajusta a largura máxima para leitura confortável */
+    max-width: 800px; 
+    margin: 0 auto; 
+    transition: background-color 0.4s, color 0.4s;
+}
+
+#reader-content p {
+    margin-bottom: 1.5em; /* Espaçamento entre parágrafos */
+    text-align: justify;
 }
 
 .loading-text {
@@ -236,27 +317,44 @@ main h2 {
 
 /* RESPONSIVIDADE */
 @media (max-width: 600px) {
+    /* ... (Ajustes de responsividade mantidos e adaptados ao novo layout) ... */
     .header-container {
-        flex-direction: column;
+        flex-direction: row; 
+        justify-content: space-between;
         gap: 0.5rem;
     }
 
-    main h2 {
-        text-align: center;
+    main {
+        margin: 2rem auto;
     }
-    
+
     .gallery-container {
         grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
         gap: 1rem;
     }
-
+    
     #reader-content {
-        padding: 1.5rem;
+        padding: 2rem 5%;
         font-size: 16px;
     }
 
     .reader-controls {
-        flex-direction: column;
+        flex-direction: row; 
+        flex-wrap: wrap;
+        padding: 1rem;
+    }
+    
+    .reader-controls h3 {
+        width: 100%;
+        order: -1; 
+        text-align: left;
+        margin: 0 0 10px 0;
+        font-size: 1rem;
+    }
+
+    .reader-settings {
         gap: 0.5rem;
+        width: 100%;
+        justify-content: flex-end;
     }
 }

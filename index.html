@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -16,7 +16,6 @@
             <h1>LibriPublica</h1>
             <p>Sua biblioteca de clássicos em domínio público.</p>
             <button id="login-btn">
-                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Logo">
                 Entrar com Google
             </button>
         </div>
@@ -34,7 +33,7 @@
         </header>
 
         <main>
-            <h2>Explore nossa Coleção</h2>
+            <h2>Coleção</h2>
             <div id="book-gallery" class="gallery-container">
                 </div>
         </main>
@@ -42,14 +41,13 @@
     
     <div id="ebook-reader" class="hidden">
         <div class="reader-controls">
+            <button id="close-reader-btn">Voltar</button>
             <h3 id="reader-title"></h3>
-            <div class="font-controls">
-                <span>A-</span>
-                <button id="decrease-font">-</button>
-                <button id="increase-font">+</button>
-                <span>A+</span>
+            <div class="reader-settings">
+                <button id="decrease-font">A-</button>
+                <button id="increase-font">A+</button>
+                <button id="toggle-font-style" title="Alternar Estilo de Fonte">Aa</button>
             </div>
-            <button id="close-reader-btn">Fechar [X]</button>
         </div>
         <div id="reader-content">
             <p class="loading-text">Carregando livro...</p>
@@ -59,7 +57,6 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-
     <script src="script.js"></script>
 </body>
 </html>
